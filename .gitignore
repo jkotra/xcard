@@ -11,6 +11,12 @@ CTestTestfile.cmake
 _deps
 build/**
 
-//binary
+#binary
 bin/**
 main
+
+#tests
+tests/**
+!tests/CMakeLists.txt
+!tests/xcard_tests.cpp
+!tests/cc.txt

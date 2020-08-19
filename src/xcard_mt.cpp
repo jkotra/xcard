@@ -171,11 +171,8 @@ std::vector<std::string> xcardMT::LinearSearch()
 
     long int per_thread = std::ceil((max_s - card_b) / this->max_threads);
 
-    std::cout << per_thread << " " << per_thread * this->max_threads << std::endl;
-
     for (int i = 0; i < this->max_threads && card_b < max_s; i++)
     {
-        std::cout << card_b << " " << (card_b + per_thread) << std::endl;
         threads[i] = std::thread(&xcardMT::runnerLS, this, card_b, (card_b + per_thread), &results[i]);
         card_b = card_b + per_thread;
     }
@@ -186,15 +183,18 @@ std::vector<std::string> xcardMT::LinearSearch()
         final_result.insert(final_result.end(), results[i].begin(), results[i].end());
     }
 
-    //leftover
-    for (int i = this->max_threads * per_thread; i < max_s; i++)
-    {
+    long int leftovers = this->max_threads*per_thread - (card_b - max_s);
+    long long int leftover_at = (card_b - max_s) - leftovers;
 
-        if (LuhnCheck(std::to_string(i)) == true)
-        {
+    for (long long int i = leftover_at; i < leftovers; i++)
+    {
+        if (LuhnCheck(std::to_string(i)) == true){
             final_result.push_back(std::to_string(i));
         }
     }
+    
+
+
 
     return final_result;
 }
