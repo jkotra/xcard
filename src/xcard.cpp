@@ -6,10 +6,13 @@
 xcard::xcard(std::string prefix, int debug)
 {
     this->prefix = prefix;
+    this->debug = debug;
 }
 
 bool xcard::LuhnCheck(const std::string &cardNo)
 {
+
+    //Orignally taken from GFG - https://www.geeksforgeeks.org/luhn-algorithm/
 
     int nDigits = cardNo.length();
 
@@ -70,7 +73,7 @@ std::string xcard::generateCard()
     {
 
         std::string cc = cardbuf;
-
+        
         for (int i = 0; i < genreq; i++)
         {
             cc.insert(cc.length(), std::to_string(dist(generator)));
@@ -78,7 +81,6 @@ std::string xcard::generateCard()
 
         if (LuhnCheck(cc) == true)
         {
-
             return cc;
         }
     }
