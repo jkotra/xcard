@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 #include <string>
-#include "../include/main.hpp"
+#include "../include/xcard.hpp"
 
 xcard::xcard(std::string prefix, int debug)
 {

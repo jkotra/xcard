@@ -2,7 +2,7 @@
 #include<fstream>
 #include <gtest/gtest.h>
 
-#include "../include/main.hpp"
+#include "../include/xcard.hpp"
 
 TEST(xcard, random_card){
     

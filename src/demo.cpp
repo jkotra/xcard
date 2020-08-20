@@ -2,7 +2,7 @@
 #include <vector>
 #include <threads.h>
 #include <fstream>
-#include "../include/main.hpp"
+#include "../include/xcard.hpp"
 
 int main()
 {

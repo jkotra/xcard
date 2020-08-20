@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
-#include "../include/main.hpp"
+#include "../include/xcard.hpp"
 
 void xcardMT::runnerLS(long long int start, long long int end, std::vector<std::string> *result)
 {
@@ -194,7 +194,6 @@ std::vector<std::string> xcardMT::LinearSearch()
     }
     
 
-
-
     return final_result;
 }
+
