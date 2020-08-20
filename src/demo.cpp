@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <threads.h>
-#include <fstream>
 #include "../include/xcard.hpp"
 
 int main()

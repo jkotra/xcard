@@ -11,11 +11,28 @@
 
 ## Usage
 
+
+refer to [demo.cpp](src/demo.cpp)
+
+---
+
 ## Building
 
-## Building (Windows)
+```
+mkdir bin
+cd bin
+cmake ..
+make
+```
 
 ## Testing
+
+```
+cd tests
+cmake ..
+make
+/xcard_tests
+```
 
 
 ---
