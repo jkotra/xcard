@@ -2,7 +2,7 @@
 
 # xcard
 
-![](assets/credit-card.png)
+![](assets/credit-card.svg)
 
 
 </div>

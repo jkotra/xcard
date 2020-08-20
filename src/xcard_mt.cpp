@@ -56,7 +56,10 @@ xcardMT::xcardMT(std::string prefix, int threads, int debug)
 
     this->prefix = prefix;
     this->debug = debug;
+    
+    if (threads > 0){
     this->max_threads = threads;
+    }
 }
 
 std::vector<bool> xcardMT::validateFromFile(std::ifstream &fp)

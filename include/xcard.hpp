@@ -21,7 +21,7 @@ class xcardMT : xcard
 {
 
 protected:
-    int max_threads;
+    int max_threads = 1;
 
     void runnerLS(long long int start, long long int end, std::vector<std::string>  *result);
     void runner(std::vector<std::string> cards, std::vector<bool>  *result);
