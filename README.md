@@ -2,8 +2,11 @@
 
 # xcard
 
-![](assets/credit-card.png)
+<img src="assets/credit-card.png" width="128" height="128" alt="Photo of 3 cats">
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) 
+
+*Read*: [Xcard library - Overview](https://stdin.top/posts/xcard/)
 
 </div>
 
@@ -37,4 +40,4 @@ make
 
 ---
 
-<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
