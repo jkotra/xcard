@@ -6,16 +6,33 @@
 int main()
 {
 
-    //initialize
-    xcard xc("4", false);
+    xcard xc("456", true);
 
     std::cout << "xcard version: " << xc.VERSION << std::endl;
 
-    std::cout << "Generate 10 random valid cards with prefix 4" << std::endl;
+    std::cout << "[DEMO] Generate 10 random valid cards with prefix 4" << std::endl;
 
     for (int i = 0; i < 10; i++)
     {
         std::cout << xc.generateCard() << std::endl;
+    }
+
+    std::cout << "enter prefix for linear search!" << std::endl;
+    std::string user_input;
+    std::cin >> user_input;
+
+    xcardMT xcmt(user_input, 4, true);
+    std::vector<std::string> cards;
+
+    cards = xcmt.LinearSearch();
+
+
+    for (int i = 0; i < cards.size(); i++)
+    {
+        if (cards[i].length() != 16){
+            continue;
+        }
+        std::cout << i << " " << cards[i] << std::endl;
     }
 
     return 0;

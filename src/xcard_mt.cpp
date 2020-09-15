@@ -13,11 +13,13 @@ void xcardMT::runnerLS(long long int start, long long int end, std::vector<std::
 
     for (long long int i = start; i < end; i++)
     {
+
         if (LuhnCheck(std::to_string(i)) == true)
         {
             result->push_back(std::to_string(i));
-            i += countdown;
-            continue;
+        }
+        else{
+            result->push_back(std::to_string(false));
         }
 
         countdown--;
@@ -91,14 +93,18 @@ std::vector<bool> xcardMT::validateFromFile(std::ifstream &fp)
 
     if (this->debug)
     {
-        std::cout << "[DEBUG]TotalLines=" << line_counter << std::endl;
-        std::cout << "[DEBUG]max_threads=" << this->max_threads << std::endl;
+        std::cout << "[DEBUG] TotalLines=" << line_counter << std::endl;
+        std::cout << "[DEBUG] max_threads=" << this->max_threads << std::endl;
     }
 
     //calculate how many for each thread!
     int per_thread = std::ceil(line_counter / this->max_threads);
 
-    //loop and send threads.
+    if (this->debug){
+        std::cout << "[DEBUG] PerThread=" << per_thread << std::endl;
+    }
+
+    //loop and dispatch to threads.
     for (int i = 0; i < this->max_threads && !fp.eof(); i++)
     {
         std::vector<std::string> cards;
@@ -117,10 +123,17 @@ std::vector<bool> xcardMT::validateFromFile(std::ifstream &fp)
     for (int i = 0; i < this->max_threads; i++)
     {
         threads[i].join();
+        if (this->debug){
+            std::cout << "[DEBUG] Thread " << i << " joined!" << std::endl;
+        }
         final_result.insert(final_result.end(), results[i].begin(), results[i].end());
     }
 
     //leftover cards
+    if (this->debug){
+        std::cout << "[DEBUG] Leftover=" << this->max_threads * per_thread << std::endl;
+    }
+
     for (int i = this->max_threads * per_thread; i < line_counter; i++)
     {
         getline(fp, buf);
@@ -174,28 +187,38 @@ std::vector<std::string> xcardMT::LinearSearch()
 
     long int per_thread = std::ceil((max_s - card_b) / this->max_threads);
 
+    if (this->debug){
+        std::cout << "[DEBUG] PerThread=" << per_thread << std::endl;
+    }
+
     for (int i = 0; i < this->max_threads && card_b < max_s; i++)
     {
         threads[i] = std::thread(&xcardMT::runnerLS, this, card_b, (card_b + per_thread), &results[i]);
-        card_b = card_b + per_thread;
+        card_b += per_thread;
     }
 
     for (int i = 0; i < this->max_threads; i++)
     {
+        if (this->debug){
+            std::cout << "[DEBUG] Thread " << i << " joined!" << std::endl;
+        }
         threads[i].join();
         final_result.insert(final_result.end(), results[i].begin(), results[i].end());
     }
 
-    long int leftovers = this->max_threads*per_thread - (card_b - max_s);
-    long long int leftover_at = (card_b - max_s) - leftovers;
+    long long int leftovers = this->max_threads * per_thread - (card_b - max_s) - final_result.size();
+    
+    if (this->debug){
+    std::cout << "[DEBUG] Leftovers="<< leftovers << std::endl << "[DEBUG] At=" << (max_s - leftovers) << std::endl;
+    }
 
-    for (long long int i = leftover_at; i < leftovers; i++)
+    for (long long int i = max_s - leftovers; i < leftovers; i++)
     {
         if (LuhnCheck(std::to_string(i)) == true){
             final_result.push_back(std::to_string(i));
         }
     }
-    
+
 
     return final_result;
 }

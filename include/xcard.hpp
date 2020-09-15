@@ -10,7 +10,7 @@ protected:
     bool LuhnCheck(const std::string &cardNo);
 
 public:
-    float VERSION = 0.01;
+    float VERSION = 0.02;
     
     xcard(std::string prefix = "-1", int debug = false);
     bool validateCard(const std::string &cardNo);

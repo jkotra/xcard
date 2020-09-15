@@ -16,9 +16,9 @@ bool xcard::LuhnCheck(const std::string &cardNo)
 
     int nDigits = cardNo.length();
 
-    if (nDigits < 1)
+    if (nDigits < 1 && this->debug)
     {
-        std::cout << "Invalid input. Input must be of lenghth 16. (InputLen=" << nDigits << ")" << std::endl;
+        std::cout << "Invalid input. (InputLen=" << nDigits << ")" << std::endl;
         return false;
     }
 
