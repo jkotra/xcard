@@ -34,7 +34,7 @@ make
 cd tests
 cmake ..
 make
-/xcard_tests
+./xcard_tests
 ```
 
 
