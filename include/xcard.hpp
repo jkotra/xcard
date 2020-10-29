@@ -10,7 +10,7 @@ protected:
     bool LuhnCheck(const std::string &cardNo);
 
 public:
-    float VERSION = 0.02;
+    float VERSION = 0.03;
     
     xcard(std::string prefix = "-1", int debug = false);
     bool validateCard(const std::string &cardNo);
@@ -21,7 +21,7 @@ class xcardMT : xcard
 {
 
 protected:
-    int max_threads = 1;
+    int max_threads = -1;
 
     void runnerLS(long long int start, long long int end, std::vector<std::string>  *result);
     void runner(std::vector<std::string> cards, std::vector<bool>  *result);

@@ -4,7 +4,10 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
+#include <mutex>
 #include "../include/xcard.hpp"
+
+std::mutex mutex;
 
 void xcardMT::runnerLS(long long int start, long long int end, std::vector<std::string> *result)
 {
@@ -14,9 +17,16 @@ void xcardMT::runnerLS(long long int start, long long int end, std::vector<std::
     for (long long int i = start; i < end; i++)
     {
 
-        if (LuhnCheck(std::to_string(i)) == true)
+        std::string card = std::to_string(i);
+
+        if (LuhnCheck(card) == true)
         {
-            result->push_back(std::to_string(i));
+            result->push_back(card);
+            if (this->debug){
+                mutex.lock();
+                std::cout << "[VALID] " << card << std::endl;
+                mutex.unlock();
+            }
         }
         else{
             result->push_back(std::to_string(false));
@@ -26,6 +36,7 @@ void xcardMT::runnerLS(long long int start, long long int end, std::vector<std::
 
         if (countdown == 0)
         {
+            //reset
             countdown = 10;
         }
     }
@@ -33,11 +44,6 @@ void xcardMT::runnerLS(long long int start, long long int end, std::vector<std::
 
 void xcardMT::runner(std::vector<std::string> cards, std::vector<bool> *result)
 {
-
-    if (this->debug)
-    {
-        std::cout << "cards.size()=" << cards.size() << std::endl;
-    }
 
     for (std::string c : cards)
     {
@@ -88,6 +94,12 @@ std::vector<bool> xcardMT::validateFromFile(std::ifstream &fp)
     fp.seekg(0, std::ios::beg);
 
     //init. threads and results vector.
+
+    //if max_threads < 0 set to no of cpu of system.
+    if (this->max_threads <= 0){
+        this->max_threads = std::thread::hardware_concurrency();
+    }
+
     std::thread threads[this->max_threads];
     std::vector<bool> results[this->max_threads];
 
@@ -98,7 +110,7 @@ std::vector<bool> xcardMT::validateFromFile(std::ifstream &fp)
     }
 
     //calculate how many for each thread!
-    int per_thread = std::ceil(line_counter / this->max_threads);
+    int per_thread = std::floor(line_counter / this->max_threads);
 
     if (this->debug){
         std::cout << "[DEBUG] PerThread=" << per_thread << std::endl;
@@ -155,6 +167,8 @@ std::vector<bool> xcardMT::validateFromFile(std::ifstream &fp)
     //return result
     return final_result;
 }
+
+
 std::vector<std::string> xcardMT::LinearSearch()
 {
 
@@ -181,13 +195,17 @@ std::vector<std::string> xcardMT::LinearSearch()
     long long int card_b = std::stoll(cardbuf);
 
     //init. threads and results vector.
+    if (this->max_threads <= 0){
+        this->max_threads = std::thread::hardware_concurrency();
+    }
     std::thread threads[this->max_threads];
     std::vector<std::string> results[this->max_threads];
     std::vector<std::string> final_result;
 
-    long int per_thread = std::ceil((max_s - card_b) / this->max_threads);
+    long int per_thread = std::floor((max_s - card_b) / this->max_threads);
 
     if (this->debug){
+        std::cout << "[DEBUG] max_threads=" << this->max_threads << std::endl;
         std::cout << "[DEBUG] PerThread=" << per_thread << std::endl;
     }
 

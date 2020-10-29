@@ -21,7 +21,7 @@ int main()
     std::string user_input;
     std::cin >> user_input;
 
-    xcardMT xcmt(user_input, 4, true);
+    xcardMT xcmt(user_input, -1, true);
     std::vector<std::string> cards;
 
     cards = xcmt.LinearSearch();
@@ -29,9 +29,6 @@ int main()
 
     for (int i = 0; i < cards.size(); i++)
     {
-        if (cards[i].length() != 16){
-            continue;
-        }
         std::cout << i << " " << cards[i] << std::endl;
     }
 

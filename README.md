@@ -2,7 +2,7 @@
 
 # xcard
 
-<img src="assets/credit-card.png" width="128" height="128" alt="Photo of 3 cats">
+<img src="assets/credit-card.png" width="128" height="128" alt="Xcard">
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) 
 
