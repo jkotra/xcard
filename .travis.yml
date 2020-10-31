@@ -1,7 +1,12 @@
 language: cpp
 
-before_install:
-  - sudo apt-get -y install libgtest-dev
+
+apt:
+  sources:
+    - ubuntu-toolchain-r-test
+  packages:
+    - g++-7
+
 
 compiler:
   - gcc
@@ -9,13 +14,6 @@ compiler:
 script: 
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir bin
-
-  - cd tests
-  - cmake .
-  - make
-  - xcard_tests
-  
-  - cd ${TRAVIS_BUILD_DIR}
   - cd bin
   - cmake ..
   - make
