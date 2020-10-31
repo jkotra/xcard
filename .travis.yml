@@ -1,0 +1,21 @@
+language: cpp
+
+before_install:
+  - sudo apt-get -y install libgtest-dev
+
+compiler:
+  - gcc
+
+script: 
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir bin
+
+  - cd tests
+  - cmake .
+  - make
+  - xcard_tests
+  
+  - cd ${TRAVIS_BUILD_DIR}
+  - cd bin
+  - cmake ..
+  - make
