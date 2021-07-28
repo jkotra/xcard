@@ -62,7 +62,14 @@
         "valarray": "cpp",
         "future": "cpp",
         "iomanip": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "complex": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }
